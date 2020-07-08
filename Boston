@@ -1,0 +1,41 @@
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_boston
+from sklearn.metrics import confusion_matrix,accuracy_score,mean_squared_error,mean_absolute_error
+import pandas as pd
+
+data=load_boston()
+df_boston=pd.DataFrame(data['data'],columns=data['feature_names'])
+df_boston['target']=data['target']
+df_boston.head()
+
+x=df_boston.drop('target',axis=1)
+y=df_boston['target']
+
+a=float(input('Enter CRIM '))
+b=float(input('Enter ZN '))
+c=float(input('Enter INDUS '))
+d=float(input('Enter CHAS '))
+e=float(input('Enter NOX '))
+f=float(input('Enter RM '))
+g=float(input('Enter AGE '))
+h=float(input('Enter DIS '))
+i=float(input('Enter RAD '))
+j=float(input('Enter TAX '))
+k=float(input('Enter PTRATIO '))
+l=float(input('Enter B '))
+m=float(input('Enter LSTAT '))
+
+model=LinearRegression()
+model.fit(x,y)
+model.predict([[a,b,c,d,e,f,g,h,i,j,k,l,m]])
+pred=model.predict(x)
+print(model.score(x,y))
+
+print('slope is',model.coef_)
+print('intercept is',model.intercept_)
+#Linear Regression has no attribute 'feature_importances_'
+
+print('mean square error',mean_squared_error(y,pred))
+print('mean absolute error',mean_absolute_error(y,pred))
+print('root mean square error',np.sqrt(mean_squared_error(y,pred)))
